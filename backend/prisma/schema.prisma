@@ -11,12 +11,23 @@ datasource db {
 }
 
 
+model Users {
+  id String @id @default(uuid())
+  email String
+  password String
+  created_at DateTime? @default(now())
+  
+  @@map("users")
+}
+
 model Persons {
   id String @id @default(uuid())
   name String
   phone String
   phones Phone[]
-
+  created_at DateTime? @default(now())
+  
+  @@map("persons")
 }
 
 model Phone{
@@ -25,4 +36,8 @@ model Phone{
   owner Persons @relation(fields: [personId], references: [id])
 
   personId String
+
+  created_at DateTime? @default(now())
+
+  @@map("phones")
 }
