@@ -23,7 +23,6 @@ model Users {
 model Persons {
   id String @id @default(uuid())
   name String
-  phone String
   phones Phone[]
   created_at DateTime? @default(now())
   
@@ -33,7 +32,7 @@ model Persons {
 model Phone{
   id String @id @default(uuid())
   number String 
-  owner Persons @relation(fields: [personId], references: [id])
+  person Persons @relation(fields: [personId], references: [id])
 
   personId String
 
