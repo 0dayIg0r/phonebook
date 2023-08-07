@@ -3,6 +3,7 @@ import { CreateUserController } from './controllers/user/UserController'
 import { AuthUserController } from './controllers/user/AuthUserController'
 import { CreatePersonController } from './controllers/persons/PersonController'
 import { isAuthenticated } from './middlewares/isAuthenticated'
+import { CreatePhoneController } from './controllers/phone/PhoneController'
 
 
 
@@ -14,4 +15,5 @@ router.post('/login', new AuthUserController().handle)
 
 
 router.post('/register/person', isAuthenticated, new CreatePersonController().handle)
+router.post('/register/phone', isAuthenticated, new CreatePhoneController().handle)
 export { router }
