@@ -25,6 +25,7 @@ model Persons {
   name String
   phones Phone[]
   created_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
   
   @@map("persons")
 }
@@ -37,6 +38,7 @@ model Phone{
   personId String
 
   created_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
 
   @@map("phones")
 }
