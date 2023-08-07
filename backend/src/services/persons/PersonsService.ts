@@ -2,25 +2,24 @@ import prismaClient from "../../prisma/prisma";
 
 interface PersonRequest{
     name: string,
-    phone: string
 }
 
 class CreatePersonService {
-    async execute({name, phone}:PersonRequest){
+    async execute({name}:PersonRequest){
 
-        if(!name || !phone){
-            throw new Error('Digite o nome e o número do telefone.')
+        if(!name ){
+            throw new Error('Digite o nome do contato')
         }
 
         // Verify number
-        const numberExists = await prismaClient.phone.findFirst({
+        const personExists = await prismaClient.persons.findFirst({
             where:{
-                number: phone
+                name: name
             }
         })
 
-        if(numberExists){
-            throw new Error('Esse número já está na agenda')
+        if(personExists){
+            throw new Error('Essa pessoa já está na agenda')
         }
 
 
@@ -28,7 +27,6 @@ class CreatePersonService {
         const person = await prismaClient.persons.create({
             data:{
                 name: name,
-                phone: phone
             }
         })
 

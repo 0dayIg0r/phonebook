@@ -1,16 +1,15 @@
 import prismaClient from "../../prisma/prisma";
 
 
-export interface PhoneRequest {
-    personId: string,
+interface PhoneRequest {
+    id: string,
     number: string
 }
 
+class UpdatePhoneService {
+    async execute({ id, number }: PhoneRequest) {
 
-class CreatePhoneRequest {
-    async execute({ personId, number }: PhoneRequest) {
-
-        if (!personId) {
+        if (!id) {
             throw new Error('Escolha a pessoa para adicionar o novo número')
         }
 
@@ -19,21 +18,23 @@ class CreatePhoneRequest {
         }
 
         // Check if person exists
-        const personExists = await prismaClient.persons.findFirst({
+        const numberExists = await prismaClient.phone.findFirst({
             where: {
-                id: personId
+                id: id
             }
         })
 
-        if (!personExists) {
+        if (!numberExists) {
             throw new Error('Pessoa não encontrada')
         }
 
 
-        const phone = await prismaClient.phone.create({
+        const phone = await prismaClient.phone.update({
+            where: {
+                id: id
+            },
             data: {
-                personId: personId,
-                number: number,
+                number: number
             }
         })
 
@@ -41,4 +42,4 @@ class CreatePhoneRequest {
     }
 }
 
-export { CreatePhoneRequest }
+export { UpdatePhoneService }

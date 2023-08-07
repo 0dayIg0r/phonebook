@@ -3,12 +3,12 @@ import { CreatePersonService } from "../../services/persons/PersonsService";
 
 class CreatePersonController {
     async handle(req: Request, res: Response) {
-        const { name, phone } = req.body
+        const { name } = req.body
 
         const createPersonService = new CreatePersonService()
 
         const person = await createPersonService.execute({
-            name, phone
+            name
         })
         return res.json(person)
     }

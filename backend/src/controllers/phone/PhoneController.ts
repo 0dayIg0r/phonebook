@@ -13,7 +13,7 @@ class CreatePhoneController {
             number
         })
 
-        res.json(phone)
+        return res.json(phone)
     }
 }
 
