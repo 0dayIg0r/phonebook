@@ -2,11 +2,11 @@ import { NextFunction, Request, Response } from "express";
 import { verify } from "jsonwebtoken";
 import dotenv from 'dotenv'
 
+
 dotenv.config()
 
 interface Payload {
     sub: string,
-
 }
 
 export function isAuthenticated(
@@ -14,28 +14,22 @@ export function isAuthenticated(
     res: Response,
     next: NextFunction) {
 
-    // Get token
-    const authToken = req.headers.authorization
+    const authHeader = req.headers['authorization']
+    const token = authHeader && authHeader.split(' ')[1]
 
-    if (!authToken) {
+    if (!token) {
         return res.status(401).end()
     }
 
-    const [, token] = authToken.split(' ')
-
     try {
-        // Validate token
         const { sub } = verify(
             token,
             process.env.JWT_SECRET as string
         ) as Payload
 
-        // Get token id and put on request
-        req.user_id = sub
-
         return next()
 
-    } catch (e) {
+    } catch (e: any) {
         res.status(401).end()
     }
 }
