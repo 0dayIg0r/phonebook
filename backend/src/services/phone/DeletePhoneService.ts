@@ -1,11 +1,12 @@
 import prismaClient from "../../prisma/prisma";
 
-interface PhoneRequest {
-    id: string
+export interface PhoneRequest {
+    id: string,
+    personId?: string | void,
 }
 
 class DeletePhoneService {
-    async execute({ id }: PhoneRequest) {
+    async execute({ id, personId }: PhoneRequest) {
 
         if (!id) {
             throw new Error('Acesso negado')
