@@ -1,25 +1,15 @@
 import prismaClient from "../../prisma/prisma";
 
 interface PersonRequest {
-    id: string
+    personId: string
 }
 
 class DeletePersonService {
-    async execute({ id }: PersonRequest) {
-
-        const personExists = await prismaClient.persons.findFirst({
-            where: {
-                id: id
-            }
-        })
-
-        if (!personExists) {
-            throw new Error('Pessoa inexistente')
-        }
+    async execute({ personId }: PersonRequest) {
 
         const deletedPerson = await prismaClient.persons.delete({
             where: {
-                id: id
+                id: personId
             }
         })
 

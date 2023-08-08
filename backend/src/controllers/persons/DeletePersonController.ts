@@ -1,44 +1,27 @@
 import { Request, Response } from 'express'
-import { DeletePersonService } from '../../services/persons/DeletePersonService'
-import { DeletePhoneService } from '../../services/phone/DeletePhoneService'
-import { GetAllPersonsService } from '../../services/persons/GetAllPersonsService'
-
-
+import { DeletePersonService } from '../../services/persons/DeletePersonService';
 
 
 
 class DeletePersonController {
     async handle(req: Request, res: Response) {
+        const { personId } = req.params;
 
-        const { id } = req.params
-        console.log(id, 'req')
+        const deletePersonService = new DeletePersonService();
 
-        const deletePersonService = new DeletePersonService()
+        try {
+            await deletePersonService.execute({
+                personId
+            });
 
-        const deletePhoneService = new DeletePhoneService()
-
-        const getAllPersons = new GetAllPersonsService()
-
-        const getPersons = await getAllPersons.execute()
-
-        const pickPersonId = getPersons.forEach((person) => {
-            return person.id
-        })
-
-
-
-        const deletePhones = await deletePhoneService.execute({
-            personId: pickPersonId,
-                id: id
-        })
-
-        const deleted = await deletePersonService.execute({
-            id
-        })
-
-        res.json({ Message: 'Contato apagado' })
-
+            return res.json({ Message: 'Pessoa deletada com sucesso' })
+        } catch (err) {
+            return res.status(500).json({ Error: 'Ocorreu um erro ao deletar a pessoa' })
+        }
     }
+    
 }
 
 export { DeletePersonController }
+
+

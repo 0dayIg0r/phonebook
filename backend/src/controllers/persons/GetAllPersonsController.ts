@@ -5,9 +5,14 @@ class GetAllPersonsController {
     async handle(req: Request, res: Response) {
         const getAllPersonsService = new GetAllPersonsService()
 
-        const persons = await getAllPersonsService.execute()
+        try {
+            const persons = await getAllPersonsService.execute()
 
-        return res.json(persons)
+            return res.json(persons)
+
+        } catch (err) {
+            return res.status(500).json({ Error: 'Não foi possível acessar os contatos' })
+        }
 
     }
 }

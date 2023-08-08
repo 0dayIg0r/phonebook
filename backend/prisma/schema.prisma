@@ -23,7 +23,7 @@ model Users {
 model Persons {
   id String @id @default(uuid())
   name String
-  phones Phone[]
+  phones Phone[] 
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
   
@@ -33,7 +33,7 @@ model Persons {
 model Phone{
   id String @id @default(uuid())
   number String 
-  person Persons @relation(fields: [personId], references: [id])
+  person Persons @relation(fields: [personId], references: [id], onDelete: Cascade)
 
   personId String
 

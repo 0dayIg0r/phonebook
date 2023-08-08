@@ -5,6 +5,8 @@ import { DeletePhoneService } from '../../services/phone/DeletePhoneService'
 class DeletePhoneController {
     async hadle(req: Request, res: Response) {
         const { id } = req.params
+        
+
 
         const deletePhoneService = new DeletePhoneService()
 

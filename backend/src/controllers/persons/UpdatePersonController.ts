@@ -10,12 +10,16 @@ class UpdatePersonController {
 
         const updatePersonsService = new UpdatePersonsService()
 
-        const updated = await updatePersonsService.execute({
-            id,
-            name
-        })
+        try {
+            const updated = await updatePersonsService.execute({
+                id,
+                name
+            })
 
-        return res.json(updated)
+            return res.json(updated)
+        } catch (err) {
+            return res.status(500).json({ Message: 'Não foi possível atualizar o contato' })
+        }
     }
 }
 

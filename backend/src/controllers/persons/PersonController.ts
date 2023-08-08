@@ -7,10 +7,14 @@ class CreatePersonController {
 
         const createPersonService = new CreatePersonService()
 
-        const person = await createPersonService.execute({
-            name
-        })
-        return res.json(person)
+        try {
+            const person = await createPersonService.execute({
+                name
+            })
+            return res.json(person)
+        } catch (err) {
+            return res.status(500).json({ Messaage: 'Não foi possível cadastrar o contato' })
+        }
     }
 }
 
