@@ -9,6 +9,7 @@ import { DeletePhoneController } from './controllers/phone/DeletePhoneController
 import { UpdatePersonController } from './controllers/persons/UpdatePersonController'
 import { DeletePersonController } from './controllers/persons/DeletePersonController'
 import { GetAllPersonsController } from './controllers/persons/GetAllPersonsController'
+import { GetAllPhonesController } from './controllers/phone/GetAllPhonesController'
 
 
 
@@ -25,6 +26,7 @@ router.put('/update/person/:id', isAuthenticated, new UpdatePersonController().h
 router.delete('/person/delete/:personId', isAuthenticated, new DeletePersonController().handle)
 
 // PHONES
+router.get('/phones', isAuthenticated, new GetAllPhonesController().handle)
 router.post('/register/phone', isAuthenticated, new CreatePhoneController().handle)
 router.put('/update/phone/:id', isAuthenticated, new UpdatePhoneController().handle)
 router.delete('/phone/delete/:id', isAuthenticated, new DeletePhoneController().hadle)
